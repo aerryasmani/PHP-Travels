@@ -1,2 +1,3 @@
-# Tester-Cheatsheet
-This repo contain the structure for all things related to testing and for my references while on the task 
+# Tester-Cheatsheet [WIP]
+Welcome to the Tester Cheatsheet! 
+This guide provides essential information for testers of all levels, covering various aspects of software testing.
