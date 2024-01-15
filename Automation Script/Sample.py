@@ -8,21 +8,21 @@ driver = webdriver.Chrome()
 # Maximize the browser window
 driver.maximize_window()
 
-# Navigate to the espl.gg website
-driver.get("https://espl.gg/")
+# Navigate to the https://phptravels.net/ website
+driver.get("https://phptravels.net/")
 
 # Add a delay for 10 seconds (you can adjust this as needed)
 time.sleep(10)
 
 # Find the element using the provided XPath
 try:
-    element = driver.find_element("xpath", '//*[@id="__next"]/div/header/div/div/div[3]/div[1]/a')
+    element = driver.find_element("xpath", '//*[@id="navbarSupportedContent"]')
     print("Element found using the provided XPath!")
 except NoSuchElementException:
     print("Element not found using the provided XPath.")
 
 # Find the button using the defined XPath
-button_xpath = '//*[@id="__next"]/div/header/div/div/div[3]/div[1]/a'
+button_xpath = '//*[@id="navbarSupportedContent"]'
 
     
 button = driver.find_element("xpath", button_xpath)
