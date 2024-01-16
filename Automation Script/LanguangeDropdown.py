@@ -11,3 +11,6 @@ driver.maximize_window()
 
 # Open Website
 driver.get("https://phptravels.net/")
+
+# Close the browser window
+driver.quit()
