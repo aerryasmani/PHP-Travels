@@ -29,7 +29,7 @@ option_text_to_select = "Option to Select"
 option_xpath = f'//a[contains(text(), "{option_text_to_select}")]'
 
 # Wait for the option to be visible after clicking on the dropdown
-WebDriverWait(driver, 20).until(
+WebDriverWait(driver, 30).until(
     EC.visibility_of_element_located((By.XPATH, option_xpath))
 )
 
