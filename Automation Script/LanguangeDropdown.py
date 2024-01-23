@@ -31,14 +31,21 @@ time.sleep(5)
 dropdown.click()
 
 # Verify the text presents
-element = driver.find_element(By.XPATH, "//body/header/div/div[2]/div[2]/ul/li[1]/ul/li[1]/a")
-search_text = "English"
-if search_text in element.text:
-    print(f"The element contains the {search_text}.")
-else:
-    print(f"The element does not contain the search text: {search_text}.")
+element = driver.find_element(By.XPATH, "//header/div/div[2]/div[2]/ul/li[1]/ul")
+language_options = ["English", "Arabic", "Turkish", "Russian", "French", "Chinese", "Germany"]
+language_results = {}
+
+for language in language_options:
+    language_results[language] = language in element.text
+
+for language, result in language_results.items():
+    if result:
+        print(f"The element contains the language: {language}.")
+    else:
+        print(f"The element does not contain the language: {language}.")
 
 # Click on the dropdown
+element.click()
 #Verify the choosen option
 #Click the option
 #Other operations
