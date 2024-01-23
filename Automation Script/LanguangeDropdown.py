@@ -32,7 +32,12 @@ try:
 except TimeoutException as e:
     print(f"TimeoutException: {e}")
 
-# Adding a small delay for demonstration purposes (you can remove this in your actual script)
+#Verify dropdown options
+#Verify the choosen option
+#Click the option
+#Close dropdown
+
+# Delay to make sure everything is close
 time.sleep(5)
 
 # Close the browser window
