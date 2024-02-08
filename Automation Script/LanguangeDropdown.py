@@ -44,8 +44,15 @@ for language, result in language_results.items():
 language_option_xpath = '//*[@id="navbarSupportedContent"]'
 language_option = driver.find_element(By.XPATH, language_option_xpath)
 time.sleep(5)
-language_option.click()
+language_options = language_option.find_elements(By.TAG_NAME, 'Arabic')
+if len(language_options) >= 4:  # Check if the desired index is within range
+    desired_option = language_options[2]  # Change the index to select a different option
+    desired_option.click()
+else:
+    print("Desired option not available. Please choose an index within range.")
+
 time.sleep(5)
+
 # Delay to make sure everything is closed
 time.sleep(5)
 
