@@ -2,9 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 import time
-from selenium.webdriver.support.ui import Select
 
 # Open Chrome Browser
 driver = webdriver.Chrome()
@@ -16,9 +14,7 @@ driver.get("https://phptravels.net/")
 driver.maximize_window()
 
 # Wait for the page to load
-WebDriverWait(driver, 30).until(
-    EC.title_contains("PHPTRAVELS")
-)
+WebDriverWait(driver, 30).until(EC.title_contains("PHPTRAVELS"))
 
 time.sleep(5)
 
@@ -44,13 +40,13 @@ for language, result in language_results.items():
     else:
         print(f"The element does not contain the language: {language}.")
 
-# Click on the dropdown
-element.click()
-#Verify the choosen option
-#Click the option
-#Other operations
-#Close dropdown
-#Delay to make sure everything is close
+# Click on the language option
+language_option_xpath = '//*[@id="navbarSupportedContent"]'
+language_option = driver.find_element(By.XPATH, language_option_xpath)
+time.sleep(5)
+language_option.click()
+time.sleep(5)
+# Delay to make sure everything is closed
 time.sleep(5)
 
 # Close the browser window
