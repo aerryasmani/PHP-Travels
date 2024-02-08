@@ -4,8 +4,11 @@ from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.support.ui import Select
 
-#Open Chrome Browser
-driver = webdriver.Chrome()
+# Open Chrome Browser with ignore certificate errors option
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+driver = webdriver.Chrome(options=options)
 
 #Maximize Browser
 driver.maximize_window()

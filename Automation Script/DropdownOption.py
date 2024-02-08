@@ -2,14 +2,19 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 
-# Open Chrome Browser
-driver = webdriver.Chrome()
+# Open Chrome Browser with ignore certificate errors option
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+driver = webdriver.Chrome(options=options)
+
 
 # Maximize Browser
 driver.maximize_window()
 
-# Open Website
+# Open Website\
 driver.get("https://phptravels.net/")
 
 # Wait for the page to load
@@ -30,7 +35,7 @@ option_xpath = f'//a[contains(text(), "{option_text_to_select}")]'
 
 # Wait for the option to be visible after clicking on the dropdown
 WebDriverWait(driver, 30).until(
-    EC.visibility_of_element_located((By.XPATH, option_xpath))
+    EC.presence_of_element_located((By.TAG_NAME, "body"))
 )
 
 # Select an option from the dropdown
