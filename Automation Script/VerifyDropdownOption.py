@@ -54,9 +54,5 @@ else:
     print("Desired option not available. Please choose an index within range.")
     time.sleep(5)
 
-
-# Delay to make sure everything is closed
-time.sleep(5)
-
 # Close the browser window
-#driver.quit()
+driver.quit()
