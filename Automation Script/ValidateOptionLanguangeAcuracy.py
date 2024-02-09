@@ -4,9 +4,22 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 
 # Open Chrome Browser
 driver = webdriver.Chrome()
+
+# Turkish
+chrome_options = Options()
+chrome_options.add_argument("--lang=tr")
+
+# Download and install ChromeDriver binary
+chrome_driver_path = ChromeDriverManager().install()
+
+# Initialize Chrome WebDriver with the specified options
+driver = webdriver.Chrome(service=Service(chrome_driver_path), options=chrome_options)
 
 # Open Website
 driver.get("https://phptravels.net/")
@@ -54,7 +67,20 @@ else:
     print("Desired option not available. Please choose an index within range.")
     time.sleep(5)
 
-#Text Present or not
+
+# Verify text present
+element = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, 'h4.text-white strong'))
+)
+
+if "Seyahatiniz Burada Başlıyor!" in element.text:
+    print("Text is present on the page.")
+    print(element.text)  # Print the text of the element
+else:
+    print("Text is not present on the page.")
+
+# Close the WebDriver
+driver.quit()
 
 # Close the browser window
 driver.quit()
