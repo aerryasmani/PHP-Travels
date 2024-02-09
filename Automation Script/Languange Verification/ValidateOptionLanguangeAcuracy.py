@@ -55,7 +55,7 @@ for language, result in language_results.items():
         print(f"The element does not contain the language: {language}.")
 
 # Click on the language option
-language_options = driver.find_elements(By.XPATH, '//ul[@class="dropdown-menu rounded-1 show"]//a')
+language_options = driver.find_elements(By.XPATH, '//*[@id="navbarSupportedContent"]/div[2]/ul/li[2]/ul/li[1]/a')
 time.sleep(5)
 
 if len(language_options) >= 4:  # Check if the desired index is within range
