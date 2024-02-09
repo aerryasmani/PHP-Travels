@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+from selenium.webdriver.support.ui import Select
 
 # Open Chrome Browser
 driver = webdriver.Chrome()
@@ -41,20 +42,21 @@ for language, result in language_results.items():
         print(f"The element does not contain the language: {language}.")
 
 # Click on the language option
-language_option_xpath = '//*[@id="navbarSupportedContent"]'
-language_option = driver.find_element(By.XPATH, language_option_xpath)
+language_options = driver.find_elements(By.XPATH, '//ul[@class="dropdown-menu rounded-1 show"]//a')
 time.sleep(5)
-language_options = language_option.find_elements(By.TAG_NAME, 'Arabic')
+
 if len(language_options) >= 4:  # Check if the desired index is within range
     desired_option = language_options[2]  # Change the index to select a different option
     desired_option.click()
+    print("This is the correct option")
+    time.sleep(5)
 else:
     print("Desired option not available. Please choose an index within range.")
+    time.sleep(5)
 
-time.sleep(5)
 
 # Delay to make sure everything is closed
 time.sleep(5)
 
 # Close the browser window
-driver.quit()
+#driver.quit()
