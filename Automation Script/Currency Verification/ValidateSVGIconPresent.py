@@ -25,7 +25,7 @@ dropdown_xpath = '//*[@id="navbarSupportedContent"]/div[2]/ul/li[2]/a'
 dropdown = driver.find_element(By.XPATH, dropdown_xpath)
 dropdown.click()
 
-# Wait for the SVG icon to be present
+# Wait for the SVG icon to be present for turkish icon
 detect_svg = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//img[contains(@src, "pk.svg")]')))
 
 if detect_svg:

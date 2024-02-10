@@ -42,7 +42,7 @@ for language, result in language_results.items():
     else:
         print(f"The element does not contain the language: {language}.")
 
-# Wait for the SVG icon to be present
+# Wait for the SVG icon to be present for turkish icon
 detect_svg = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//img[contains(@src, "tr.svg")]')))
 
 if detect_svg:
