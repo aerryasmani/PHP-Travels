@@ -42,20 +42,13 @@ for language, result in language_results.items():
         print(f"The element does not contain the language: {language}.")
 
 # Click on the language option
-language_options = WebDriverWait(driver, 30).until(
-    EC.visibility_of_all_elements_located((By.XPATH, '//*[@id="navbarSupportedContent"]/div[2]/ul/li[2]'))
-)
-
-if len(language_options) >= 3:  # Check if the desired index is within range
-    desired_option = language_options[2]  # Change the index to select a different option
-    desired_option.click()
-    print("This is the correct option")
-    time.sleep(5)
+language_option = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[contains(@href, '/currency/PAK')]")))
+if language_option:
+    language_option.click()
+    time.sleep(10)
+    print("This is the correct currency")
 else:
-    print("Desired option not available. Please choose an index within range.")
-    time.sleep(5)
-
-time.sleep(5)
+    print("This is the incorrect")
 
 # Close the WebDriver
 driver.quit()
