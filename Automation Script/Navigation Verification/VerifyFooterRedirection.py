@@ -52,7 +52,8 @@ for Navs, result in Navigation_results.items():
 #Verify the redirection on the page navs
 for option_text in Navigation_options:
     try:
-        Navigation_element = driver.find_element(By.XPATH, f"//ul[@class='dropdown-menu-item row']/li[@class='col-md-4']/a[contains(@class, 'fadeout') and contains(@class, 'waves-effect') and normalize-space(text()) = '{option_text}']")
+        Navigation_element = driver.find_element(By.XPATH, f"//ul[@class='dropdown-menu-item row']/li[@class='col-md-4']/a[text()='Option Text']
+")
         Navigation_element.click()
         
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="navbarSupportedContent"]/div[1]/ul')))
