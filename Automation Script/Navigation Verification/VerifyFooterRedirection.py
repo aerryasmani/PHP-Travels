@@ -52,11 +52,10 @@ for Navs, result in Navigation_results.items():
 #Verify the redirection on the page navs
 for option_text in Navigation_options:
     try:
-        Navigation_element = driver.find_element(By.XPATH, f"//ul[@class='dropdown-menu-item row']/li[@class='col-md-4']/a[text()='Option Text']
-")
+        Navigation_element = driver.find_element(By.XPATH, f"//ul[@class='dropdown-menu-item row']/li[@class='col-md-4']/a[text()='Option Text']")
         Navigation_element.click()
         
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="navbarSupportedContent"]/div[1]/ul')))
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="fadein"]/section[2]/div/div[1]/div[1]/div[2]/ul/li/ul')))
         
         WebDriverWait(driver, 10).until(EC.url_contains(option_text.lower()))
         
