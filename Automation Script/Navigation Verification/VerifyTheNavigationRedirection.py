@@ -25,8 +25,6 @@ element = driver.find_element(By.XPATH, '//*[@id="navbarSupportedContent"]/div[1
 Navigation_options = ["Flights", "Hotels", "Tours", "Cars", "Blogs"]
 Navigation_results = {}
 
-#Something Something
-
 #Click on The Navigation And Redirection
 for option_text in Navigation_options:
     try:
