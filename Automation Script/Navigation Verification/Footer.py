@@ -34,3 +34,17 @@ if is_scrolled_down:
     print("The page is scrolled down.")
 else:
     print("The page is NOT scrolled down.")
+
+#Verify the footer navigations
+element = driver.find_element(By.XPATH, '//*[@id="fadein"]/section[2]/div/div[1]/div[1]/div[2]/ul/li/ul')
+Navigation_options = ["About Us", "Cookies Policy", "Faq", "Careers And Jobs", "Contact Us","Privacy Policy", "Booking Tips", "How To Book", "Term Of Use", "Become A Supplier","File A Claim"]
+Navigation_results = {}
+
+for Navs in Navigation_options:
+    Navigation_results[Navs] = Navs in element.text
+
+for Navs, result in Navigation_results.items():
+    if result:
+        print(f"The element contains the navigation option: {Navs}.")
+    else:
+        print(f"The element does not contain the navigation option: {Navs}.")
