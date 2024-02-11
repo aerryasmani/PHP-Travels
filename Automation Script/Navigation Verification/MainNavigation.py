@@ -21,7 +21,7 @@ WebDriverWait(driver, 30).until(EC.title_contains("PHPTRAVELS"))
 time.sleep(5)
 
 # Verify the navigation text presents
-element = driver.find_element(By.XPATH, "//ul[@class='header_menu navbar-nav']/li[position() >= 1 and position() <= 5]/a")
+element = driver.find_element(By.XPATH, '//*[@id="navbarSupportedContent"]/div[1]/ul')
 Navigation_options = ["Flights", "Hotels", "Tours", "Cars", "Blogs"]
 Navigation_results = {}
 
