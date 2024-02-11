@@ -21,22 +21,30 @@ WebDriverWait(driver, 30).until(EC.title_contains("PHPTRAVELS"))
 time.sleep(5)
 
 # Verify the navigation text presents
-element = driver.find_element(By.XPATH, "//ul[@class='header_menu navbar-nav']/li[position() >= 1 and position() <= 5]/a")
+element = driver.find_element(By.XPATH, '//*[@id="navbarSupportedContent"]/div[1]/ul')
 Navigation_options = ["Flights", "Hotels", "Tours", "Cars", "Blogs"]
 Navigation_results = {}
 
-for Navs in Navigation_options:
-    Navigation_results[Navs] = Navs in element.text
-
-for Navs, result in Navigation_results.items():
-    if result:
-        print(f"The element contains the navigation option: {Navs}.")
-    else:
-        print(f"The element does not contain the navigation option: {Navs}.")
-
 #Something Something
 
-
+#Click on The Navigation And Redirection
+for option_text in Navigation_options:
+    try:
+        Navigation_element = driver.find_element(By.XPATH, f'//ul[@class="header_menu navbar-nav"]/li/a[contains(@class, "nav-link") and text()="{option_text}"]')
+        Navigation_element.click()
+        
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="navbarSupportedContent"]/div[1]/ul')))
+        
+        WebDriverWait(driver, 10).until(EC.url_contains(option_text.lower()))
+        
+        Navigation_results[option_text] = True
+        print(f"Navigate to '{option_text}' page.")
+        time.sleep(10)  # Optional: Add a delay for demonstration purposes
+        
+        driver.back()
+    except Exception as e:
+        Navigation_results[option_text] = False
+        print(f"Fail to navigate '{option_text}' page:", e)
 
  
 
