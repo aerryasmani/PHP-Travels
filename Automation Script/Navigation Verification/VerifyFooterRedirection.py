@@ -67,3 +67,5 @@ for option_text in Navigation_options:
     except Exception as e:
         Navigation_results[option_text] = False
         print(f"Fail to navigate '{option_text}' page:", e)
+
+    #Footer is present but is not visible.
