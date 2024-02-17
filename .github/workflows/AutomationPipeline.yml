@@ -38,5 +38,3 @@ jobs:
   Deploy:
     needs: Check-Site-Availability
     runs-on: ubuntu-latest
-    steps:
-      # Add your deployment steps here
