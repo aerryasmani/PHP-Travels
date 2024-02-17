@@ -33,7 +33,7 @@ WebDriverWait(driver, 30).until(EC.title_contains("PHPTRAVELS"))
 time.sleep(5)
 
 # Identify the dropdown element by its XPath
-dropdown_xpath = '//*[@id="navbarSupportedContent"]/div[2]/ul/li[1]/a'
+dropdown_xpath = ''
 
 # Click on the dropdown
 dropdown = driver.find_element(By.XPATH, dropdown_xpath)
@@ -55,7 +55,7 @@ for language, result in language_results.items():
         print(f"The element does not contain the language: {language}.")
 
 # Click on the language option
-language_options = driver.find_elements(By.XPATH, '//*[@id="navbarSupportedContent"]/div[2]/ul/li[2]/ul/li[1]/a')
+language_options = driver.find_elements(By.XPATH, '')
 time.sleep(5)
 
 if len(language_options) >= 4:  # Check if the desired index is within range
