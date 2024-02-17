@@ -1,10 +1,10 @@
-name: GitHub Actions Demo
+name: Automation Trigger
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   push:
-        branches : [main]
+    branches: [main]
   pull_request:
-        branches : [main]
+    branches: [main]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -20,3 +20,23 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  Check-Site-Availability:
+    runs-on: ubuntu-latest
+    needs: Explore-GitHub-Actions
+    steps:
+      - name: Check Site Availability
+        id: site_check
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://phptravels.net/)
+          if [ $response -ne 200 ]; then
+            echo "::error::Site is down with HTTP status code $response"
+            exit 1
+          fi
+        shell: bash
+
+  Deploy:
+    needs: Check-Site-Availability
+    runs-on: ubuntu-latest
+    steps:
+      # Add your deployment steps here
