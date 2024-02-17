@@ -73,7 +73,7 @@ element = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, 'h4.text-white strong'))
 )
 
-if "Seyahatiniz Burada Başlıyor!" in element.text:
+if "Insert text to validate" in element.text:
     print("Text is present on the page.")
     print(element.text)  # Print the text of the element
 else:
