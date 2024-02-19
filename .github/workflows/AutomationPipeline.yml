@@ -1,51 +1,57 @@
 name: GitHub Actions Pipeline
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: 
+
+on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: Echo triggering event and runner info
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+          echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
-- name: Check Site Availability and Content
-  id: site_check
-  run: |
-    headers=$(curl -sI https://phptravels.net -w "%{http_code}\n%{content_type}\n" -o /dev/null)
-    response_code=$(echo "$headers" | head -n 1)
-    content_type=$(echo "$headers" | head -n 2 | tail -n 1)
-    if [ "$response_code" -ne 200 ]; then
-      echo "::error::Site is down with HTTP status code $response_code"
-      exit 1
-    else
-      echo "Site is up with HTTP status code $response_code"
-      echo "Content-Type: $content_type"
-      content=$(http https://phptravels.net)
-      if ! echo "$content" | grep -q "Expected Content"; then
-        echo "::error::Expected content not found on the page."
-        exit 1
-      fi
-    fi
-  shell: bash
+      # ... other steps
 
-  Stop-Workflow-If-Site-Down:
-    needs: Check-Site-Availability
-    if: ${{ failure() }}
+      - name: List files in the repository
+        run: ls ${{ github.workspace }}
+
+      - name: Check job status
+        run: echo "🍏 This job's status is ${{ job.status }}."
+
+  Check-Site-Availability:
     runs-on: ubuntu-latest
-    steps:
-      - name: Stop Workflow
-        run: exit 1
+    needs: Explore-GitHub-Actions
 
+    steps:
+      - name: Check Site Availability and Content
+        id: site_check
+        uses: actions/http-client-action@v1
+        with:
+          args: |
+            http -s -I https://phptravels.net -o /dev/null
+            response_code=$(echo "$output" | yaml -r '.status_code')
+            content_type=$(echo "$output" | yaml -r '.headers.content_type')
+            if [ $response_code != 200 ]; then
+              echo "::error::Site is down with HTTP status code $response_code"
+              exit 1
+            else
+              echo "Site is up with HTTP status code $response_code"
+              echo "Content-Type: $content_type"
+              content=$(http -s https://phptravels.net)
+              if ! yaml -r ".($content)" | grep -q "Expected Content"; then
+                echo "::error::Expected content not found on the page."
+                exit 1
+              fi
+            fi
+        env:
+          HTTP_HEADERS: |
+            User-Agent: MyCustomUserAgent
+
+  # ... other jobs
