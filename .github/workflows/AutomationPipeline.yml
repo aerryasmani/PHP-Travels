@@ -37,7 +37,7 @@ jobs:
           else
             echo "Site is up with HTTP status code $response_code"
             echo "Content-Type: $content_type"
-            content=$(curl -s https://example.com)
+            content=$(curl -s https://phptravels.net)
             if [[ $content == *"Expected Content"* ]]; then
               echo "Expected content found on the page."
             else
