@@ -28,7 +28,7 @@ jobs:
       - name: Check Site Availability and Content
         id: site_check
         run: |
-          headers=$(curl -s -I https://phptravels.net/)
+          headers=$(curl -s -I https://phptravels.net)
           response_code=$(echo "$headers" | head -n 1 | awk '{print $2}')
           content_type=$(echo "$headers" | grep -i "content-type" | awk '{print $2}')
           if [ $response_code -ne 200 ]; then
