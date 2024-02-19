@@ -40,10 +40,26 @@ jobs:
           else
             echo "Site is up with HTTP status code $response"
             content=$(curl -s https://phptravels.net)
-            if echo "$content" | grep -q "Your Trip Starts Here! Let us help you plan your next journey — the one that will leave a lifetime of memories"; then
-              echo "Expected content found on the page."
-            else
-              echo "::error::Expected content not found on the page."
+            
+            # Define the expected content
+            expected_content="Your Trip Starts Here! Let us help you plan your next journey — the one that will leave a lifetime of memories"
+            
+            # Loop until the expected content is found or timeout after 30 seconds
+            timeout=$((SECONDS + 30))
+            while [ $SECONDS -lt $timeout ]; do
+              if echo "$content" | grep -q "$expected_content"; then
+                echo "Expected content found on the page."
+                break
+              else
+                echo "Expected content not found on the page. Retrying in 1 second..."
+                sleep 1
+                content=$(curl -s https://phptravels.net)
+              fi
+            done
+            
+            # Check if the expected content was not found within the timeout
+            if [ $SECONDS -ge $timeout ]; then
+              echo "::error::Timeout: Expected content not found on the page after 30 seconds."
               exit 1
             fi
           fi
