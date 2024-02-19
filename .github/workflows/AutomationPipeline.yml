@@ -32,26 +32,16 @@ jobs:
     steps:
       - name: Check Site Availability and Content
         id: site_check
-        uses: actions/http-client-action@v1
-        with:
-          args: |
-            http -s -I https://phptravels.net -o /dev/null
-            response_code=$(echo "$output" | yaml -r '.status_code')
-            content_type=$(echo "$output" | yaml -r '.headers.content_type')
-            if [ $response_code != 200 ]; then
-              echo "::error::Site is down with HTTP status code $response_code"
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" -I https://phptravels.net)
+          if [ "$response" -ne 200 ]; then
+            echo "::error::Site is down with HTTP status code $response"
+            exit 1
+          else
+            echo "Site is up with HTTP status code $response"
+            content=$(curl -s https://phptravels.net)
+            if ! echo "$content" | grep -q "Expected Content"; then
+              echo "::error::Expected content not found on the page."
               exit 1
-            else
-              echo "Site is up with HTTP status code $response_code"
-              echo "Content-Type: $content_type"
-              content=$(http -s https://phptravels.net)
-              if ! yaml -r ".($content)" | grep -q "Expected Content"; then
-                echo "::error::Expected content not found on the page."
-                exit 1
-              fi
             fi
-        env:
-          HTTP_HEADERS: |
-            User-Agent: MyCustomUserAgent
-
-  # ... other jobs
+          fi
