@@ -1,28 +1,20 @@
-name: GitHub Actions Pipeline
+selenium_test:
+  description: "Test case to open the PHPTRAVELS website"
+  steps:
+    - description: "Open Chrome Browser with ignore certificate errors option"
+      command: "Open Chrome Browser"
+      options:
+        excludeSwitches: ["enable-logging"]
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    - description: "Maximize Browser"
+      command: "Maximize Browser"
 
-jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+    - description: "Open Website"
+      command: "Open Website"
+      url: "https://phptravels.net/"
 
-    steps:
-      - name: Echo triggering event and runner info
-        run: |
-          echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-          echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-          echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-
-      # ... other steps
-
-      - name: List files in the repository
-        run: ls ${{ github.workspace }}
-
-      - name: Check job status
-        run: echo "🍏 This job's status is ${{ job.status }}."
-
-  
+    - description: "Wait for the page to load"
+      command: "Wait for Page to Load"
+      timeout: 20
+      condition: "Title Contains"
+      value: "PHPTRAVELS"
