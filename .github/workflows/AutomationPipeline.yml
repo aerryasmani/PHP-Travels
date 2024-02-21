@@ -1,4 +1,4 @@
-name: OpenUrl.py
+name: C:\Users\USER\Tester-Cheatsheet\Automation Script\OpenUrl.py
 
 on:
   schedule:
@@ -24,7 +24,7 @@ jobs:
       - name: execute py script # run main.py
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
-        run: python OpenUrl.py
+        run: C:\Users\USER\Tester-Cheatsheet\Automation Script\OpenUrl.py
 
       - name: commit files
         run: |
