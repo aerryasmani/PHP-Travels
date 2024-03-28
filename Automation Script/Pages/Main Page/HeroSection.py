@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException  # Import TimeoutException
 import time
 
 # Open Chrome Browser
@@ -16,17 +17,19 @@ driver.get("https://phptravels.net/")
 driver.maximize_window()
 
 # Wait for the page to load
-WebDriverWait(driver, 30).until(EC.title_contains("PHPTRAVELS"))
+try:
+    WebDriverWait(driver, 30).until(EC.title_contains("Your Trip Starts Here!"))
+except TimeoutException:
+    print("Timeout: Page title did not contain expected text.")
 
-time.sleep(5)
+# Wait for the element to be visible
+element = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.XPATH, "//h4[@class='text-white']")))
 
-#Verify the text of the search bar is present
-WebDriverWait(driver, 30).until(EC.title_contains("Your Trip Starts Here!"))
-time.sleep(5)
-Text = driver.find_element(By.XPATH, "//h4[@class='text-white']")
+# Extract the text of the element
+text = element.text
 
-if "Your Trip Starts Here!" in Text:
+if "Your Trip Starts Here!" in text:
     print("Text is present on the page.")
-    print(Text)  # Print the text of the element
+    print(text)  # Print the text of the element
 else:
     print("Text is not present on the page.")
