@@ -1,60 +1,48 @@
+import logging
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Open Chrome Browser
-driver = webdriver.Chrome()
+# Configure logging
+logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
+logger = logging.getLogger(__name__)  # Create a logger for the script
 
-# Maximize Browser
-driver.maximize_window()
-
-# Open Website
-driver.get("https://phptravels.net/")
-
-# Wait for the page to load
-WebDriverWait(driver, 20).until(
-    EC.title_contains("PHPTRAVELS")
-)
-
-# Identify the dropdown element by its XPath
-dropdown_xpath = '//*[@id="navbarSupportedContent"]/div[2]/ul/li[1]/a'
-
-# Click on the dropdown
-dropdown = driver.find_element(By.XPATH, dropdown_xpath)
-dropdown.click()
-
-# Define the option XPath after clicking on the dropdown
-option_text_to_select = "Option to Select"
-option_xpath = f'//a[contains(text(), "{option_text_to_select}")]'
-
-# Wait for the option to be visible after clicking on the dropdown
-WebDriverWait(driver, 20).until(
-    EC.visibility_of_element_located((By.XPATH, option_xpath))
-)
-
-# Select an option from the dropdown
 try:
-    option = driver.find_element(By.XPATH, option_xpath)
-    option.click()
-    print(f"Option '{option_text_to_select}' found and clicked.")
+    # Initialize the WebDriver
+    logger.info("Initializing WebDriver...")
+    driver = webdriver.Chrome()
+    logger.info("WebDriver initialized.")
+
+    # Open the browser and navigate to the URL
+    url = "https://www.youtube.com/watch?v=I8BobmZglOk&ab_channel=ScreenJunkies"
+    logger.info(f"Opening URL: {url}")
+    driver.get(url)
+    logger.info("URL opened.")
+
+    # Wait for the span element containing the heading to be present
+    logger.info("Waiting for heading element...")
+    heading_element = WebDriverWait(driver, 15).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, "span.title"))
+    )
+    logger.info("Heading element found.")
+
+    # Verify the heading content
+    expected_heading = "Honest Trailers - X-Men: The Animated Series"
+    actual_heading = heading_element.get_attribute("innerText")
+    logger.info(f"Expected Heading: {expected_heading}")
+    logger.info(f"Actual Heading: {actual_heading}")
+
+    if actual_heading == expected_heading:
+        logger.info("Correct Webpage")
+    else:
+        logger.info("Incorrect Webpage")
+
 except Exception as e:
-    print(f"Error: {e}")
+    logger.error(f"Error occurred: {str(e)}")
 
-# Verify that the selected option is correct
-selected_option = option.text if option else None
-expected_option = "Option to Select"
-
-if selected_option == expected_option:
-    print(f"Test Passed: Dropdown option '{expected_option}' is selected.")
-else:
-    print(f"Test Failed: Expected '{expected_option}' but got '{selected_option}'.")
-
-# Verify Header Of the Page
-header_element = driver.find_element(By.CLASS_NAME, "text-white")
-header_text = header_element.text
-expected_header_text = "Your Trip Starts Here!"
-assert header_text == expected_header_text, f"Header text is not as expected. Found: {header_text}, Expected: {expected_header_text}"
-
-# Close the browser window
-driver.quit()
+finally:
+    # Close the browser
+    logger.info("Closing the browser.")
+    driver.quit()
+    logger.info("Browser closed.")
