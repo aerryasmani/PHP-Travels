@@ -1,3 +1,6 @@
-# Tester-Cheatsheet [WIP]
-Welcome to the Tester Cheatsheet! 
-This guide provides essential information for testers of all levels, covering various aspects of software testing.
+# PHP-Travels [WIP]
+
+This is a open project which is available in open domain https://phptravels.net/
+This repo is for me to learn python and creating a deeepr understanding on how to create a test script using python.
+
+Welcome to add or comment to the script

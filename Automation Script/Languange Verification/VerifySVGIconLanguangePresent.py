@@ -2,12 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 import time
-from selenium.webdriver.support.ui import Select
 
 # Open Chrome Browser
 driver = webdriver.Chrome()
+driver.delete_all_cookies()
+time.sleep(5)
 
 # Open Website
 driver.get("https://phptravels.net/")
@@ -16,9 +16,7 @@ driver.get("https://phptravels.net/")
 driver.maximize_window()
 
 # Wait for the page to load
-WebDriverWait(driver, 30).until(
-    EC.title_contains("PHPTRAVELS")
-)
+WebDriverWait(driver, 30).until(EC.title_contains("PHPTRAVELS"))
 
 time.sleep(5)
 
@@ -44,14 +42,15 @@ for language, result in language_results.items():
     else:
         print(f"The element does not contain the language: {language}.")
 
-# Click on the dropdown
-element.click()
-#Verify the choosen option
-#Click the option
-#Other operations
-#Close dropdown
-#Delay to make sure everything is close
-time.sleep(5)
+# Wait for the SVG icon to be present for turkish icon
+detect_svg = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//img[contains(@src, "tr.svg")]')))
 
-# Close the browser window
+if detect_svg:
+    detect_svg_src = detect_svg.get_attribute("src")
+    print("The SVG is correct and the 'src' attribute value is:", detect_svg_src)
+    time.sleep(5)
+else:
+    print("The SVG is incorrect or not found.")
+
+# Close the WebDriver
 driver.quit()
