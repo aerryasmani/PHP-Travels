@@ -28,7 +28,7 @@ dropdown_xpath = '//*[@id="navbarSupportedContent"]/div[2]/ul/li[2]'
 
 # Click on the dropdown
 dropdown = driver.find_element(By.XPATH, dropdown_xpath)
-time.sleep(5)
+time.sleep(10)
 dropdown.click()
 
 # Verify the text presents
@@ -45,5 +45,6 @@ for language, result in language_results.items():
     else:
         print(f"The element does not contain the language: {language}.")
 
-# Close the WebDriver
+# Close the browser
 driver.quit()
+
