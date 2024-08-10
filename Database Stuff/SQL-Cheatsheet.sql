@@ -69,3 +69,15 @@ SELECT
     ) AS NewHeaderName2
 FROM [Table1]
 WHERE [Header2] = 'condition'
+
+--- Statement to calculate reminder when divide
+SELECT
+    date,
+    SUM(
+        (CAST((((CAST(column1 AS FLOAT) / CAST(NULLIF(Column2, 0) AS FLOAT)) / 200.0) * 100.0) AS DECIMAL(10, 2)) / 100.0) 
+        * column3 
+    ) AS Your_Temp_Column_Name
+FROM
+    your_table_name
+GROUP BY
+    date
