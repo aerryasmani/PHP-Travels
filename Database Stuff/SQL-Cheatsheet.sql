@@ -80,4 +80,6 @@ SELECT
 FROM
     your_table_name
 GROUP BY
-    date
+    columnName
+
+--- Statement

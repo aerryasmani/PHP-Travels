@@ -1,0 +1,19 @@
+#Considerrations
+
+Purpose of the API: 
+ -> Know the business logic and functionality the API is supposed to achieve.
+ -> Parameter data and attributes the API should fetched.
+Endpoints: 
+ -> Familiarize yourself with the API endpoints, including the base URL and paths.
+Request Types: 
+ -> Understand the different HTTP methods (GET, POST, PUT, DELETE, PATCH) used by the API.
+ -> Avoid to test if the method are complex for you to manipulate the outcome.
+Input Parameters: 
+ -> Review the parameters the API accepts, such as query parameters, path parameters, headers, and request body.
+Response Structure: 
+ -> Understand the expected responses, including status codes, response formats 
+ -> Typically in the form of (JSON, XML).
+Authentication: 
+ -> Determine if the API requires authentication (e.g., API keys, OAuth tokens).
+ -> Different API will have different token or depending on how they develop the product.
+
