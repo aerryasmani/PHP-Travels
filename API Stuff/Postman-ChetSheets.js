@@ -66,3 +66,16 @@ pm.request.headers.add({key: "Authorization", value: "Bearer token"});
 pm.test("Authorization header is set", function () {
     pm.expect(pm.request.headers.has("Authorization")).to.be.true;
 });
+
+//Sample Code for Function Expression Syntax
+const checkStatusCode = function () {
+    pm.response.to.have.status(200);
+};
+pm.test("Check status code", checkStatusCode);
+
+//Named Function Syntax
+function checkStatusCode() {
+    pm.response.to.have.status(200);
+}
+pm.test("Check status code", checkStatusCode);
+
