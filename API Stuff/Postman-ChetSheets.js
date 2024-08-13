@@ -37,3 +37,32 @@ pm.globals.set("user_id", "12345");
 pm.test("Global variable user_id is set", function () {
     pm.expect(pm.globals.get("user_id")).to.eql("12345");
 });
+
+//Check Json information
+var jsonData = pm.response.json();
+pm.test("Check JSON value", function () {
+    pm.expect(jsonData.name).to.eql("John Doe");
+});
+
+//Check Json information
+var jsonData = pm.response.json();
+pm.test("Check JSON value", function () {
+    pm.expect(jsonData.name).to.eql("John Doe");
+});
+
+//Check Json Body
+var responseBody = pm.response.text();
+pm.test("Check response body", function () {
+    pm.expect(responseBody).to.include("success");
+});
+
+//Check JSON header content type
+pm.test("Content-Type is JSON", function () {
+    pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
+});
+
+//Request Header
+pm.request.headers.add({key: "Authorization", value: "Bearer token"});
+pm.test("Authorization header is set", function () {
+    pm.expect(pm.request.headers.has("Authorization")).to.be.true;
+});
