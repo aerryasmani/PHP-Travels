@@ -73,9 +73,5 @@ const checkStatusCode = function () {
 };
 pm.test("Check status code", checkStatusCode);
 
-//Named Function Syntax
-function checkStatusCode() {
-    pm.response.to.have.status(200);
-}
-pm.test("Check status code", checkStatusCode);
+
 
